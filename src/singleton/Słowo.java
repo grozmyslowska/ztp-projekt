@@ -47,4 +47,22 @@ public class Słowo {
     public void setTrudnośćSłowa(Trudność trudność) {
         this.trudność = trudność;
     }
+
+
+
+
+
+    public String getPytanie(boolean polNaAng){
+        if(polNaAng)
+            return this.poPolsku;
+        else
+            return this.poAngielsku;
+    }
+    public String getPodpowiedz(boolean polNaAng){
+        if(polNaAng)
+            return this.poAngielsku;
+        else
+            return this.poPolsku;
+    }
+
 }

@@ -7,7 +7,7 @@ import java.util.*;
 
 public final class Słownik{
 
-    private Słownik instance = new Słownik();
+    private static Słownik instance = new Słownik();
     private List<Słowo> listaSłów;
 
     private Słownik() {
@@ -18,7 +18,7 @@ public final class Słownik{
         listaSłów.add(new Słowo("bird","ptak", /*SłowoKategoria.Zwierzęta,*/ Trudność.BradzoŁatwy));
     }
 
-    public Słownik getInstance() {
+    public static Słownik getInstance() {
         return instance;
     }
 

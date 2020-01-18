@@ -19,6 +19,25 @@ public class Gracz {
 
     public void setTrudnośćAutomatyczna(boolean option){
         trudnośćAutomatyczna = option;
+        if(option == true){
+            switch (sumaPunktów / waga) {
+                case 0:
+                    trudność = Trudność.BradzoŁatwy;
+                    break;
+                case 1:
+                    trudność = Trudność.Łatwy;
+                    break;
+                case 2:
+                    trudność = Trudność.Trudny;
+                    break;
+                case 3:
+                    trudność = Trudność.BardzoTrudny;
+                    break;
+                default:
+                    trudność = Trudność.Ekspert;
+                    break;
+            }
+        }
     }
 
     public void setTrudność(Trudność trudność){

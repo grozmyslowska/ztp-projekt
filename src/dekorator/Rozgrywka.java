@@ -1,9 +1,32 @@
 package dekorator;
 
+import singleton.Słownik;
+import singleton.Słowo;
+import strategia.Strategia;
+
 import java.util.List;
 import java.util.Scanner;
 
-public interface Rozgrywka {
-    void graj();
-    int zdobytePunkty();
+public abstract class Rozgrywka {
+    Słownik słownik;
+    List<Słowo> słowa;
+    boolean polNaAng;
+    Strategia strategia;
+
+    public Rozgrywka(Słownik słownik, boolean polNaAng, Strategia strategia) {
+        this.słownik = słownik;
+        this.polNaAng = polNaAng;
+        this.strategia = strategia;
+    }
+
+    void graj(){
+
+    }
+    int zdobytePunkty(){
+        return 0;
+    }
+
+    public void zmienStrategie(Strategia strategy) {
+        this.strategia = strategy;
+    }
 }
