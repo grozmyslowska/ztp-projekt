@@ -2,23 +2,24 @@ package singleton;
 
 import iterator.SłownikIterator;
 import iterator.IteratorTrudność;
+import iterator.SłownikKategoriaIterator;
 
 import java.util.*;
 
 public final class Słownik{
-
-    private Słownik instance = new Słownik();
+//dodałem static by móc posiadać to w strategii
+    private static Słownik instance = new Słownik();
     private List<Słowo> listaSłów;
 
     private Słownik() {
         //tutaj nasz słownik na twardo
         listaSłów = new ArrayList<Słowo>();
-        listaSłów.add(new Słowo("kot","cat", /*SłowoKategoria.Zwierzęta,*/ Trudność.BradzoŁatwy));
-        listaSłów.add(new Słowo("pies","dog", /*SłowoKategoria.Zwierzęta,*/ Trudność.BradzoŁatwy));
-        listaSłów.add(new Słowo("bird","ptak", /*SłowoKategoria.Zwierzęta,*/ Trudność.BradzoŁatwy));
+        listaSłów.add(new Słowo("kot","cat", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
+        listaSłów.add(new Słowo("pies","dog", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
+        listaSłów.add(new Słowo("bird","ptak", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
     }
-
-    public Słownik getInstance() {
+//dodałem static by móc posiadać to w strategii
+    public static Słownik getInstance() {
         return instance;
     }
 
@@ -53,21 +54,29 @@ public final class Słownik{
 
     //////////////////////////////////////////////////////////////////////////
 
-    public Iterator<Słowo> iterator(int kategoria){
+    public Iterator<Słowo> iterator(List<SłowoKategoria> kategorie){
 
-        switch (kategoria) {
-            case 0: {
-                return new SłownikIterator();
-            }
-            case 1: {
-                return null; //new iterator.SłownikKategoriaIterator(kategoria);
-            }
-
-            default: {
-                System.out.println("Nie wybrano opcji! Domyślny iterator.");
-                return new SłownikIterator();
-            }
+        if(kategorie.isEmpty()){
+            Iterator<Słowo> it = listaSłów.iterator();
+            return it;
         }
+        else{
+            return new SłownikKategoriaIterator(this, kategorie);
+        }
+//        switch (kategoria) {
+//            case 0: {
+//                Iterator<Słowo> it = listaSłów.iterator();
+//                return it; //new SłownikIterator();
+//            }
+//            case 1: {
+//                return new iterator.SłownikKategoriaIterator(kategoria);
+//            }
+//
+//            default: {
+//                System.out.println("Nie wybrano opcji! Domyślny iterator.");
+//                return new SłownikIterator();
+//            }
+//        }
     }
 
 }

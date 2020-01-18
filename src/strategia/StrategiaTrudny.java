@@ -15,4 +15,14 @@ public class StrategiaTrudny implements Strategia {
 //        wybrane.add(słownik.losujSłowo(Trudność.Trudny));
         return null;
     }
+
+    @Override
+    public void wyświetlPytanie(int choose, boolean polski) {
+
+    }
+
+    @Override
+    public Słowo pobierzSłowo(int choose) {
+        return null;
+    }
 }

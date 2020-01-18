@@ -3,13 +3,13 @@ package singleton;
 public class Słowo {
     String poPolsku;
     String poAngielsku;
-    //SłowoKategoria słowoKategoria;
+    SłowoKategoria słowoKategoria;
     Trudność trudność;
 
     public Słowo() {
     }
 
-    public Słowo(String poPolsku, String poAngielsku, /*SłowoKategoria słowoKategoria,*/ Trudność trudność) {
+    public Słowo(String poPolsku, String poAngielsku, SłowoKategoria słowoKategoria, Trudność trudność) {
         this.poPolsku = poPolsku;
         this.poAngielsku = poAngielsku;
         //this.słowoKategoria = słowoKategoria;
@@ -32,13 +32,13 @@ public class Słowo {
         this.poAngielsku = poAngielsku;
     }
 
-//    public SłowoKategoria getSłowoKategoria() {
-//        return słowoKategoria;
-//    }
-//
-//    public void setSłowoKategoria(SłowoKategoria słowoKategoria) {
-//        this.słowoKategoria = słowoKategoria;
-//    }
+    public SłowoKategoria getSłowoKategoria() {
+        return słowoKategoria;
+    }
+
+    public void setSłowoKategoria(SłowoKategoria słowoKategoria) {
+        this.słowoKategoria = słowoKategoria;
+    }
 
     public Trudność getTrudnośćSłowa() {
         return trudność;
