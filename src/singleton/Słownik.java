@@ -35,19 +35,6 @@ public final class Słownik{
 
     //////////////////////////////////////////////////////////////////////////
 
-    void dodajSłowo(Słowo słowo){
-        listaSłów.add(słowo);
-    }
-
-    void edytujSłowo(Słowo słowo, Słowo słowoEdytowane){
-        for (Słowo s : listaSłów){
-            if(s == słowo){
-                s = słowoEdytowane;
-                break;
-            }
-        }
-    }
-
     void usuńSłowo(Słowo słowo){
         if(listaSłów.contains(słowo)) listaSłów.remove(słowo);
     }
@@ -77,6 +64,29 @@ public final class Słownik{
 //                return new SłownikIterator();
 //            }
 //        }
+    }
+
+
+    public void wyswietlSlownik(){
+        System.out.println();
+        System.out.println("Słownik:");
+        Słowo s;
+        for(int i=1;i<=listaSłów.size();i++){
+            s=listaSłów.get(i-1);
+            System.out.println(i+" "+s.getPoPolsku()+" "+s.getPoAngielsku()+" "+s.getTrudnośćSłowa());
+        }
+    }
+
+    public void usunSlowo(){
+
+    }
+
+    public void edytujSlowo(){
+
+    }
+
+    public void dodajSlowo(){
+
     }
 
 }

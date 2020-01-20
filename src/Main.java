@@ -1,4 +1,3 @@
-import dekorator.Rozgrywka;
 import singleton.Słownik;
 import singleton.Słowo;
 import singleton.Trudność;
@@ -12,7 +11,17 @@ public class Main {
     Gracz gracz;
     Słownik słownik = Słownik.getInstance();
     private static String s;
-    
+
+    public static void main(String[] args){
+        Main main = new Main();
+
+        System.out.print("Witaj w aplikacji do nauki języka angielskiego!");
+        main.gracz = new Gracz("gracz");
+        System.out.println();
+
+        main.menuGłówne();
+    }
+
     void menuGłówne(){
         Scanner scan = new Scanner(System.in);
         String s;
@@ -26,6 +35,7 @@ public class Main {
             System.out.println("2. Sprawdzian");
             System.out.println("3. Ustaw poziom");
             System.out.println("4. Zarządzaj słownikiem");
+            System.out.println("5. Pokaż historię przeprowadzonych gier");
             System.out.print("Wybierz opcję: ");
             s = scan.nextLine();
             int i = 0;
@@ -46,7 +56,9 @@ public class Main {
                     ustawTrudność();
                     break;
                 case 4:
-                    edytujSłownik();
+                    zarzadzajSlownikiem();
+                    break;
+                case 5:
                     break;
                 default:
                     System.out.println("Nie ma takiej opcji.");
@@ -54,22 +66,28 @@ public class Main {
         }
     }
 
-    public static void main(String[] args){
-        Main main = new Main();
-
-        System.out.print("Witaj w aplikacji do nauki języka angielskiego!");
-        main.gracz = new Gracz("gracz");
-        System.out.println();
-
-        main.menuGłówne();
-    }
-
     public void nauka(){
 
+        boolean polNaAng = ustawCzyPolNaAng();
+        boolean trybPodwojnePytania = ustawTrybPodwojnePytania();
+        boolean trybUltra = ustawTrybUltra();
+
+        Strategia strategia = dobierzStrategię();
+
+        // stwórz obiekt klasy rozgrywka
+
+        // wywołaj metodę gra
+
+        // auaktualnij liczbę punktów
+    }
+
+    public void sprawdzian(){
+
+    }
+
+    boolean ustawCzyPolNaAng(){
         Scanner scan = new Scanner(System.in);
         String s;
-        boolean polNaAng = true;
-        Rozgrywka rozgrywka;
         System.out.println();
         System.out.println("Tryb");
         System.out.println("1. Polski na angielski");
@@ -87,28 +105,38 @@ public class Main {
 
         switch (i) {
             case 1:
-                polNaAng = true;
-                break;
+                return true;
             case 2:
-                polNaAng = false;
-                break;
+                return false;
             default:
-                System.out.println("Nie ma takiej opcji.");
-                return;
+                System.out.println("Nie ma takiej opcji. Ustawiono domyślnie tryb polski na angielski.");
+                return true;
         }
-
-        System.out.println("Dodatkowe tryby");
-        System.out.println("1. TrybUltra (punkty x2)");
-        System.out.println("2. Bonusowe pytanie");
-
-
     }
 
-    public void sprawdzian(){
+    boolean ustawTrybPodwojnePytania(){
+        Scanner scan = new Scanner(System.in);
+        String s;
+        System.out.print("Podwójna ilość pytań? (T/N): ");
+        s = scan.nextLine();
 
+        if (s=="T" || s=="t"){
+            return true;
+        } else return false;
     }
 
-    public Strategia dobierzStrategię(){
+    boolean ustawTrybUltra(){
+        Scanner scan = new Scanner(System.in);
+        String s;
+        System.out.print("Dodać TrybUltra (punkty x2)? (T/N): ");
+        s = scan.nextLine();
+
+        if (s=="T" || s=="t"){
+            return true;
+        } else return false;
+    }
+
+    Strategia dobierzStrategię(){
         Strategia strategia;
 
         switch (gracz.getTrudność()){
@@ -116,7 +144,7 @@ public class Main {
                 strategia = new StrategiaBardzoŁatwy();
                 break;
             case Łatwy:
-                strategia = new StrategiaŁatwy();
+                //strategia = new StrategiaŁatwy();
                 break;
             case Trudny:
                 strategia = new StrategiaTrudny();
@@ -128,19 +156,47 @@ public class Main {
                 strategia = new StrategiaEkspert();
                 break;
         }
-        return strategia;
+        return null;//strategia;
     }
 
-    public void edytujSłownik(){
+    void zarzadzajSlownikiem(){
 
+        Scanner scan = new Scanner(System.in);
+        String s;
         System.out.println();
-        System.out.println("Słownik:");
-        for(Słowo s : słownik.getAll()){
-            System.out.println(s.getPoPolsku()+s.getPoAngielsku()+s.getTrudnośćSłowa());
+        System.out.println("1. Wyświetl słownik");
+        System.out.println("2. Dodaj słowo");
+        System.out.println("3. Edytuj słowo");
+        System.out.println("4. Usuń słowo");
+        System.out.print("Wybierz opcję: ");
+
+        s = scan.nextLine();
+        int i = 0;
+
+        try {
+            i = Integer.parseInt(s.trim());
+        } catch (Exception e) {
+        }
+
+        switch (i) {
+            case 1:
+                słownik.wyswietlSlownik();
+                break;
+            case 2:
+                słownik.dodajSlowo();
+                break;
+            case 3:
+                słownik.edytujSlowo();
+                break;
+            case 4:
+                słownik.usunSlowo();
+                break;
+            default:
+                System.out.println("Nie ma takiej opcji.");
         }
     }
 
-    public void ustawTrudność(){
+    void ustawTrudność(){
         Scanner scan = new Scanner(System.in);
         String s;
         System.out.println();
