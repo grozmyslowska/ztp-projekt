@@ -23,10 +23,16 @@ public abstract class Rozgrywka {
     }
 
     void graj(){
-
     }
+
     int zdobytePunkty(){
         return 0;
+    }
+
+    public void odpowiedzPrawidlowa(){
+    }
+
+    public void odpowiedzNieprawidlowa(){
     }
 
     public void zmienStrategie(Strategia strategy) {

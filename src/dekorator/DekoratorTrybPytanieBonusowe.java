@@ -1,18 +1,23 @@
 package dekorator;
 
-public class DekoratorTrybPytanieBonusowe{}
+import singleton.Słownik;
+import singleton.SłowoKategoria;
+import strategia.Strategia;
 
-//        extends DekoratorTryb {
-//    public DekoratorTrybPytanieBonusowe(Rozgrywka rozgrywka){
-//        super(rozgrywka);
-//    }
-//
-//    public void graj() {
-//        rozgrywka.graj();
-//        System.out.println("Hah ha! To był żart - nie ma żadnego pytania bonusowego .^.");
-//    }
-//
-//    public int zdobytePunkty() {
-//        return rozgrywka.zdobytePunkty()+0;
-//    }
-//}
+import java.util.List;
+
+public class DekoratorTrybPytanieBonusowe extends DekoratorTryb {
+
+    public DekoratorTrybPytanieBonusowe(Słownik słownik, boolean polNaAng, Strategia strategia, List<SłowoKategoria> kategorie, Rozgrywka rozgrywka) {
+        super(słownik, polNaAng, strategia, kategorie, rozgrywka);
+    }
+
+    public void graj() {
+        rozgrywka.graj();
+        rozgrywka.graj();
+    }
+
+    public int zdobytePunkty() {
+        return rozgrywka.zdobytePunkty();
+    }
+}

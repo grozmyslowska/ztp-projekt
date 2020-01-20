@@ -45,15 +45,21 @@ public class RozgrywkaSprawdzian extends Rozgrywka implements Serializable {
             odpowiedzi.add(odpowiedzGracza);
 
             if(odpowiedzGracza == słowoPytanie.getPodpowiedz(polNaAng))
-                iloscPrawidlowychOdpowiedzi++; //-> tutaj dźwięk
+                odpowiedzPrawidlowa();
             else
-                iloscNieprawidlowychOdpowiedzi++;
+                odpowiedzNieprawidlowa();
         }
 
         System.out.println("Ilość prawidłowych odpowiedzi: "+iloscPrawidlowychOdpowiedzi);
     }
 
+    public void odpowiedzPrawidlowa(){
+        iloscPrawidlowychOdpowiedzi++;
+    }
 
+    public void odpowiedzNieprawidlowa(){
+        iloscNieprawidlowychOdpowiedzi++;
+    }
 
     public int zdobytePunkty() {
         return iloscPrawidlowychOdpowiedzi - iloscNieprawidlowychOdpowiedzi/2;

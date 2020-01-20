@@ -37,13 +37,21 @@ public class RozgrywkaNauka extends Rozgrywka {
                 String odpowiedzGracza = scan.nextLine();
 
                 if (odpowiedzGracza == słowoPytanie.getPodpowiedz(polNaAng)){
-                    System.out.println("Gratulacje!");
+                    odpowiedzPrawidlowa();
                     break;
                 } else
-                    System.out.println("Podana odpowiedź jest niepoprawna.");
+                    odpowiedzNieprawidlowa();
             }
         }
     }
+
+    public void odpowiedzPrawidlowa(){
+        System.out.println("Gratulacje!");
+    }
+    public void odpowiedzNieprawidlowa(){
+        System.out.println("Podana odpowiedź jest niepoprawna.");
+    }
+
     public int zdobytePunkty() {
         return 0;
     }
