@@ -18,11 +18,8 @@ public class RozgrywkaSprawdzian extends Rozgrywka implements Serializable {
     List<Słowo> pytania;
     List<String> odpowiedzi;
 
-    public RozgrywkaSprawdzian(Słownik słownik, boolean polNaAng, Strategia strategia, List<SłowoKategoria> kategorie) {
-        super(słownik, polNaAng, strategia, kategorie);
-    }
-
     public void graj() {
+        List<Słowo> słowa = słownik.getAll();
 
         for(int i=0; i<5; i++){
             słowa = strategia.wybierzSłowa(słownik, kategorie);
@@ -44,7 +41,7 @@ public class RozgrywkaSprawdzian extends Rozgrywka implements Serializable {
             String odpowiedzGracza = scan.nextLine();
             odpowiedzi.add(odpowiedzGracza);
 
-            if(odpowiedzGracza == słowoPytanie.getPodpowiedz(polNaAng))
+            if(odpowiedzGracza.equals(słowoPytanie.getPodpowiedz(polNaAng)))
                 odpowiedzPrawidlowa();
             else
                 odpowiedzNieprawidlowa();
@@ -54,10 +51,12 @@ public class RozgrywkaSprawdzian extends Rozgrywka implements Serializable {
     }
 
     public void odpowiedzPrawidlowa(){
+        super.odpowiedzPrawidlowa();
         iloscPrawidlowychOdpowiedzi++;
     }
 
     public void odpowiedzNieprawidlowa(){
+        super.odpowiedzNieprawidlowa();
         iloscNieprawidlowychOdpowiedzi++;
     }
 

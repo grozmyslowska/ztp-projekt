@@ -8,8 +8,8 @@ import java.util.List;
 
 public class DekoratorTrybPytanieBonusowe extends DekoratorTryb {
 
-    public DekoratorTrybPytanieBonusowe(Słownik słownik, boolean polNaAng, Strategia strategia, List<SłowoKategoria> kategorie, Rozgrywka rozgrywka) {
-        super(słownik, polNaAng, strategia, kategorie, rozgrywka);
+    public DekoratorTrybPytanieBonusowe(Rozgrywka rozgrywka) {
+        super(rozgrywka);
     }
 
     public void graj() {

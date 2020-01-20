@@ -1,3 +1,4 @@
+import dekorator.*;
 import singleton.Słownik;
 import singleton.Słowo;
 import singleton.SłowoKategoria;
@@ -10,6 +11,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,19 +21,21 @@ public class Main {
     Gracz gracz = new Gracz("gracz");
     Słownik słownik = Słownik.getInstance();
 
-    public static void main(String[] args){
+    public Main() {
         System.out.print("Witaj w aplikacji do nauki języka angielskiego!");
         System.out.println();
+        menuGłówne();
+    }
 
-        Main main = new Main();
-        main.menuGłówne();
+    public static void main(String[] args){
+        new Main();
     }
 
     void menuGłówne(){
         Scanner scan = new Scanner(System.in);
         String s;
 
-        while(1==1) {
+        while(true) {
 
             System.out.println();
             System.out.println("Poziom : "+gracz.getTrudność()+"");
@@ -71,7 +76,6 @@ public class Main {
     }
 
     public void nauka(){
-
         boolean polNaAng = ustawCzyPolNaAng();
         boolean trybPodwojnePytania = ustawTrybPodwojnePytania();
         boolean trybUltra = ustawTrybUltra();
@@ -79,6 +83,16 @@ public class Main {
         Strategia strategia = dobierzStrategię();
 
         // wybierz kategorie
+        List<SłowoKategoria> kategorie = new ArrayList<>();
+        kategorie.add(SłowoKategoria.Zwierzęta);
+
+        Rozgrywka rozgrywka = new RozgrywkaNauka();
+
+        rozgrywka.setPolNaAng(polNaAng);
+        rozgrywka.setKategorie(kategorie);
+        rozgrywka.setStrategia(strategia);
+        rozgrywka.setSłownik(słownik);
+
 
         // stwórz obiekt klasy rozgrywka
 
@@ -150,7 +164,7 @@ public class Main {
                 strategia = new StrategiaBardzoŁatwy();
                 break;
             case Łatwy:
-                //strategia = new StrategiaŁatwy();
+                strategia = new StrategiaŁatwy();
                 break;
             case Trudny:
                 strategia = new StrategiaTrudny();
@@ -162,7 +176,7 @@ public class Main {
                 strategia = new StrategiaEkspert();
                 break;
         }
-        return null;//strategia;
+        return strategia;
     }
 
     void zarzadzajSlownikiem(){

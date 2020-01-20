@@ -12,7 +12,7 @@ public class Słowo {
     public Słowo(String poPolsku, String poAngielsku, SłowoKategoria słowoKategoria, Trudność trudność) {
         this.poPolsku = poPolsku;
         this.poAngielsku = poAngielsku;
-        //this.słowoKategoria = słowoKategoria;
+        this.słowoKategoria = słowoKategoria;
         this.trudność = trudność;
     }
 

@@ -10,8 +10,7 @@ import java.util.List;
 public abstract class DekoratorTryb extends Rozgrywka {
     protected Rozgrywka rozgrywka;
 
-    public DekoratorTryb(Słownik słownik, boolean polNaAng, Strategia strategia, List<SłowoKategoria> kategorie, Rozgrywka rozgrywka) {
-        super(słownik, polNaAng, strategia, kategorie);
+    public DekoratorTryb(Rozgrywka rozgrywka) {
         this.rozgrywka = rozgrywka;
     }
 }

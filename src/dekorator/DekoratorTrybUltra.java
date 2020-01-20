@@ -8,8 +8,8 @@ import java.util.List;
 
 public class DekoratorTrybUltra extends DekoratorTryb {
 
-    public DekoratorTrybUltra(Słownik słownik, boolean polNaAng, Strategia strategia, List<SłowoKategoria> kategorie, Rozgrywka rozgrywka){
-        super(słownik, polNaAng, strategia, kategorie, rozgrywka);
+    public DekoratorTrybUltra(Rozgrywka rozgrywka) {
+        super(rozgrywka);
     }
 
     public void graj() {
