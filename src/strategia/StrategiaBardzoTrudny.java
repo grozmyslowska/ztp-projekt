@@ -1,6 +1,5 @@
 package strategia;
 
-import iterator.IteratorTrudność;
 import singleton.Słownik;
 import singleton.Słowo;
 import singleton.SłowoKategoria;

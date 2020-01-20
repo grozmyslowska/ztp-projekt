@@ -8,17 +8,14 @@ import java.util.Scanner;
 
 public class Main {
 
-    Gracz gracz;
+    Gracz gracz = new Gracz("gracz");
     Słownik słownik = Słownik.getInstance();
-    private static String s;
 
     public static void main(String[] args){
-        Main main = new Main();
-
         System.out.print("Witaj w aplikacji do nauki języka angielskiego!");
-        main.gracz = new Gracz("gracz");
         System.out.println();
 
+        Main main = new Main();
         main.menuGłówne();
     }
 
@@ -73,6 +70,8 @@ public class Main {
         boolean trybUltra = ustawTrybUltra();
 
         Strategia strategia = dobierzStrategię();
+
+        // wybierz kategorie
 
         // stwórz obiekt klasy rozgrywka
 

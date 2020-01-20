@@ -10,11 +10,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class RozgrywkaNauka extends Rozgrywka {
-    List<SłowoKategoria> kategorie;
 
     public RozgrywkaNauka(Słownik słownik, boolean polNaAng, Strategia strategia, List<SłowoKategoria> kategorie) {
-        super(słownik, polNaAng, strategia);
-        this.kategorie = kategorie;
+        super(słownik, polNaAng, strategia, kategorie);
     }
 
     public void graj() {
@@ -28,15 +26,8 @@ public class RozgrywkaNauka extends Rozgrywka {
 
             System.out.println(i + ". Pytanie: ");
             System.out.println(słowoPytanie.getPytanie(polNaAng));
-//
+
             strategia.wyświetlPodpowiedzi(randomInteger, polNaAng);
-//            if(słowa.size()>1) {
-//                System.out.println("Podpowiedzi: ");
-//
-//                for (Słowo s : słowa) {
-//                    System.out.println(s.getPodpowiedz(polNaAng));
-//                }
-//            }
 
             while (1 == 1){
 
@@ -51,7 +42,6 @@ public class RozgrywkaNauka extends Rozgrywka {
                 } else
                     System.out.println("Podana odpowiedź jest niepoprawna.");
             }
-
         }
     }
     public int zdobytePunkty() {
