@@ -30,26 +30,36 @@ public final class Słownik{
         }
     }
 
-    public void wyswietlSlownik(){
-        System.out.println();
-        System.out.println("Słownik:");
-        Słowo s;
-        for(int i=1;i<=listaSłów.size();i++){
-            s=listaSłów.get(i-1);
-            System.out.println(i+" "+s.getPoPolsku()+" "+s.getPoAngielsku()+" "+s.getTrudnośćSłowa());
+    public void usunSlowo(Słowo słowo){
+        listaSłów.remove(słowo);
+    }
+
+    public Słowo znajdzSlowo(String słowoPl){
+        for(Słowo słowo : listaSłów){
+            if(słowo.getPoPolsku().equals(słowoPl)){
+                return słowo;
+            }
         }
+        return null;
     }
 
-    public void usunSlowo(){
-
+    public boolean edytujSlowo(Słowo doZmiany, Słowo nowe){
+        for(Słowo słowo : listaSłów){
+            if(słowo.getPoPolsku().equals(doZmiany.getPoPolsku())){
+                słowo.setPoPolsku(nowe.getPoPolsku());
+                słowo.setPoAngielsku(nowe.getPoAngielsku());
+                słowo.setSłowoKategoria(nowe.getSłowoKategoria());
+                słowo.setTrudnośćSłowa(nowe.getTrudnośćSłowa());
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void edytujSlowo(){
+    public boolean dodajSlowo(Słowo słowo){
 
-    }
-
-    public void dodajSlowo(){
-
+        if(listaSłów.add(słowo)) return true;
+        return false;
     }
 
     public List<Słowo> getAll() {
