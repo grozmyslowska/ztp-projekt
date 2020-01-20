@@ -1,9 +1,6 @@
 package strategia;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import singleton.Słownik;
 import singleton.Słowo;
@@ -11,68 +8,80 @@ import singleton.SłowoKategoria;
 import singleton.Trudność;
 
 public class StrategiaŁatwy implements Strategia {
-    Słownik słownik;
     Iterator<Słowo> iterator;
-    List<Słowo> listaPytań;// = new ArrayList<Słowo>();
+    List<Słowo> listaPytań;
 
-//    public List<Słowo> wybierzSłowa(Słownik słownik) {
-//        return null;
-//    }
-    public StrategiaŁatwy(List<SłowoKategoria> kategorie){
-        słownik = Słownik.getInstance();
+    @Override
+    public List<Słowo> wybierzSłowa(Słownik słownik, List<SłowoKategoria> kategorie) {
         iterator = słownik.iterator(kategorie);
-        //listaPytań = losujPytania();
-        listaPytań = new ArrayList<Słowo>();
-        listaPytań.add(losujSłowo(Trudność.Łatwy));
-        listaPytań.add(losujSłowo(Trudność.BradzoŁatwy));
-        listaPytań.add(losujSłowo(Trudność.Łatwy));
-        listaPytań.add(losujSłowo(Trudność.Łatwy));
-        listaPytań.add(losujSłowo(Trudność.BradzoŁatwy));
+
+        listaPytań = losujPytania();
+
+        return listaPytań;
     }
 
     @Override
-    public void wyświetlPytanie(int choose, boolean polski) {
-        Random r = new Random();
-        int rand = r.nextInt(5);
+    public void wyświetlPodpowiedzi(int choose, boolean polski) {
+        var kolejność = losujKolejnośćPodpowiedzi(choose);
+
         if(polski){
-            System.out.println(choose+" pytanie: "+listaPytań.get(choose).getPoPolsku()+" oznacza: ");
-            System.out.println("a) "+listaPytań.get(choose).getPoAngielsku()+".");
-            System.out.println("b) "+listaPytań.get(rand).getPoAngielsku()+".");
+            System.out.println("-"+listaPytań.get(kolejność[0]).getPoAngielsku());
+            System.out.println("-"+listaPytań.get(kolejność[1]).getPoAngielsku());
+            System.out.println("-"+listaPytań.get(kolejność[2]).getPoAngielsku());
         }
         else{
-            System.out.println(choose+" pytanie: "+listaPytań.get(choose).getPoAngielsku()+" oznacza: ");
-            System.out.println("a) "+listaPytań.get(choose).getPoPolsku()+".");
-            System.out.println("b) "+listaPytań.get(rand).getPoPolsku()+".");
+            System.out.println("-"+listaPytań.get(kolejność[0]).getPoPolsku()+".");
+            System.out.println("-"+listaPytań.get(kolejność[1]).getPoPolsku()+".");
+            System.out.println("-"+listaPytań.get(kolejność[2]).getPoPolsku()+".");
         }
     }
 
-    @Override
-    public Słowo pobierzSłowo(int choose) {
-        return listaPytań.get(choose);
+
+    private ArrayList<Słowo> losujPytania(){
+        ArrayList<Słowo> pytania = new ArrayList<Słowo>();
+        pytania.add(losujSłowo(Trudność.Łatwy));
+        pytania.add(losujSłowo(Trudność.Trudny));
+        pytania.add(losujSłowo(Trudność.Trudny));
+        pytania.add(losujSłowo(Trudność.Łatwy));
+        pytania.add(losujSłowo(Trudność.BardzoTrudny));
+
+        return pytania;
     }
 
-//    private ArrayList<Słowo> losujPytania(){
-//        List<Słowo> pytania = new ArrayList<Słowo>();
-//        pytania.add(losujSłowo(Trudność.Łatwy));
-//        pytania.add(losujSłowo(Trudność.BradzoŁatwy));
-//        pytania.add(losujSłowo(Trudność.Łatwy));
-//        pytania.add(losujSłowo(Trudność.Łatwy));
-//        pytania.add(losujSłowo(Trudność.BradzoŁatwy));
-//
-//        return pytania;
-//    }
+    private int[] losujKolejnośćPodpowiedzi(int correctAnswer){
+        var table = new int[3];
+
+        Random r = new Random();
+        table[0] = correctAnswer;
+
+        for (int i=1;i<table.length; i++){
+            int rand = r.nextInt(5);
+            while(Arrays.asList(table).indexOf(rand)>=0){
+                rand = r.nextInt(5);
+            }
+            table[i]=rand;
+        }
+
+        int rand = r.nextInt(table.length);
+
+        table[0]=table[rand];
+        table[rand]=correctAnswer;
+
+        return table;
+    }
 
     private Słowo losujSłowo(Trudność trudność){
         Słowo słowo=null;
         Random r = new Random();
-        int rand = r.nextInt(10);
+        int rand = r.nextInt(5);
 
         for( ;rand>0; rand-- ){
             int wykonaniePętli = 0;
             while (iterator.hasNext()){
                 słowo = iterator.next();
+                if(słowo.getSłowoKategoria().equals(trudność)) break;
                 wykonaniePętli++;
-                if(wykonaniePętli>słownik.getAll().size()) return null;
+                if(wykonaniePętli>100) return new Słowo("Brak takiego słowa", "This word don't exist", SłowoKategoria.Zwierzęta, trudność);
             }
         }
         return słowo;
