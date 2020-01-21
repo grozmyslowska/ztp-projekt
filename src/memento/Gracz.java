@@ -1,4 +1,4 @@
-// zawiera ustawienia (trudnosc oraz czy automatyczna) oraz osiagniecia gracza (ilosc punktow)
+package memento;// zawiera ustawienia (trudnosc oraz czy automatyczna) oraz osiagniecia gracza (ilosc punktow)
 
 import singleton.Trudność;
 
@@ -10,11 +10,11 @@ public class Gracz {
     Trudność trudność;
     boolean trudnośćAutomatyczna;
 
-    public Gracz(String name) {
+    public Gracz(String name, int sumaPunktów, Trudność trudność, boolean trudnośćAutomatyczna) {
         this.name = name;
-        this.sumaPunktów = 0;
-        this.trudność = Trudność.BradzoŁatwy;
-        this.trudnośćAutomatyczna = true;
+        this.sumaPunktów = sumaPunktów;
+        this.trudność = trudność;
+        this.trudnośćAutomatyczna = trudnośćAutomatyczna;
     }
 
     public void setTrudnośćAutomatyczna(boolean option){
@@ -84,5 +84,30 @@ public class Gracz {
 
     public boolean isTrudnośćAutomatyczna() {
         return trudnośćAutomatyczna;
+    }
+
+    private static class MementoGracza implements Memento {
+        private Object stan[] = new Object[4];
+        Memento setStan(String name, int sumaPunktów, Trudność trudność, boolean trudnośćAutomatyczna){
+            stan[0]=name;
+            stan[1]=sumaPunktów;
+            stan[2]=trudność;
+            stan[3]=trudnośćAutomatyczna;
+            return this;
+        }
+        public Object getStan(){
+            return stan;
+        }
+    }
+
+    public Memento stworzMemento(){
+        return new Gracz.MementoGracza().setStan(name, sumaPunktów, trudność, trudnośćAutomatyczna);
+    }
+    public void przywroc(Memento m){
+        Object[] stan = (Object[]) ((Gracz.MementoGracza)m).getStan();
+        name = (String) stan[0];
+        sumaPunktów = (int) stan[1];
+        trudność = (Trudność) stan[2];
+        trudnośćAutomatyczna = (boolean) stan[3];
     }
 }

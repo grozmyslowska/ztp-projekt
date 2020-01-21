@@ -1,5 +1,6 @@
 package dekorator;
 
+import memento.Memento;
 import singleton.Słowo;
 
 import java.io.Serializable;
@@ -8,15 +9,15 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class RozgrywkaSprawdzian extends Rozgrywka implements Serializable {
+public class RozgrywkaSprawdzian extends Rozgrywka {
 
-    transient int iloscPrawidlowychOdpowiedzi = 0;
-    transient int iloscNieprawidlowychOdpowiedzi = 0;
+    int iloscPrawidlowychOdpowiedzi = 0;
+    int iloscNieprawidlowychOdpowiedzi = 0;
 
     List<Słowo> pytania = new ArrayList<>();
     List<String> odpowiedzi = new ArrayList<>();
 
-    transient int i = 0;
+    int i = 0;
 
     public void graj() {
         List<Słowo> słowa = strategia.wybierzSłowa(słownik, kategorie);
@@ -60,4 +61,5 @@ public class RozgrywkaSprawdzian extends Rozgrywka implements Serializable {
     public int zdobytePunkty() {
         return iloscPrawidlowychOdpowiedzi - iloscNieprawidlowychOdpowiedzi/2;
     }
+
 }

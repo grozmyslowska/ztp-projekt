@@ -18,9 +18,6 @@ public abstract class Rozgrywka {
 
     Clip clip;
 
-    public Rozgrywka() {
-    }
-
     public void setSłownik(Słownik słownik) {
         this.słownik = słownik;
     }

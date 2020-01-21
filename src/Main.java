@@ -1,20 +1,35 @@
 import dekorator.*;
+import memento.Gracz;
+import memento.Memento;
 import singleton.Słownik;
 import singleton.Słowo;
 import singleton.SłowoKategoria;
 import singleton.Trudność;
 import strategia.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-    Gracz gracz = new Gracz("gracz");
+    Gracz gracz;
     Słownik słownik = Słownik.getInstance();
 
-    public Main() {
+    public Main() throws IOException, ClassNotFoundException {
+
+        gracz = new Gracz("gracz",0,Trudność.BradzoŁatwy,false);
+
+        try{
+        ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream("gracz.bin")));
+        Memento mem = (Memento) ois.readObject();
+        gracz.przywroc(mem);
+        ois.close();
+        }
+        catch (Exception e){
+        }
+
         System.out.println();
         System.out.println();
         System.out.print("Witaj w aplikacji do nauki języka angielskiego!");
@@ -22,11 +37,11 @@ public class Main {
         menuGłówne();
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         new Main();
     }
 
-    void menuGłówne(){
+    void menuGłówne() throws IOException {
         Scanner scan = new Scanner(System.in);
         String s;
 
@@ -38,7 +53,7 @@ public class Main {
             System.out.println("2. Sprawdzian");
             System.out.println("3. Ustaw poziom trudności");
             System.out.println("4. Zarządzaj słownikiem");
-            System.out.println("5. Pokaż historię gier");
+            System.out.println("5. Zapisz stan gry");
             System.out.print("Wybierz opcję: ");
             s = scan.nextLine();
             int i = 0;
@@ -62,6 +77,11 @@ public class Main {
                     zarzadzajSlownikiem();
                     break;
                 case 5:
+                    Memento memento = gracz.stworzMemento();
+                    ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("gracz.bin")));
+                    oos.writeObject(memento);
+                    oos.close();
+                    System.out.println("Zapisano stan gry :)");
                     break;
                 default:
                     System.out.println("Nie ma takiej opcji.");
@@ -96,7 +116,7 @@ public class Main {
         gracz.setSumaPunktów(rozgrywka1.zdobytePunkty());
     }
 
-    public void sprawdzian(){
+    public void sprawdzian() throws IOException {
         boolean polNaAng = ustawCzyPolNaAng();
 
         List<SłowoKategoria> kategorie = wybierzKategorie();
