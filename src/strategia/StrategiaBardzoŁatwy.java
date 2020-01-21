@@ -96,15 +96,26 @@ public class StrategiaBardzoŁatwy implements Strategia {
     }
 
     private int[] losujKolejnośćPodpowiedzi(int correctAnswer){
-        var table = new int[2];
+        var table = new int[5];
+        boolean firstZero=true;
+        if(correctAnswer==0) firstZero=false;
 
         Random r = new Random();
         table[0] = correctAnswer;
-
         for (int i=1;i<table.length; i++){
             int rand = r.nextInt(5);
-            while(Arrays.asList(table).indexOf(rand)>=0){
+            if(rand==0&&firstZero){
+                firstZero=false;
+                table[i]=rand;
+                continue;
+            }
+            while(znajdźIndeks(table, rand)>=0){
                 rand = r.nextInt(5);
+                if(rand==0&&firstZero){
+                    firstZero=false;
+                    table[i]=rand;
+                    break;
+                }
             }
             table[i]=rand;
         }
@@ -115,6 +126,14 @@ public class StrategiaBardzoŁatwy implements Strategia {
         table[rand]=correctAnswer;
 
         return table;
+    }
+
+    private int znajdźIndeks(int[] table, int target){
+        for (int i = 0; i < table.length; i++)
+            if (table[i] == target)
+                return i;
+
+        return -1;
     }
 
     private int losujSłowo(Trudność trudność, ArrayList<Słowo> lista){
