@@ -19,27 +19,16 @@ public class RozgrywkaSprawdzian extends Rozgrywka implements Serializable {
     int i = 0;
 
     public void graj() {
-        List<Słowo> słowa = słownik.getAll();
+        List<Słowo> słowa = strategia.wybierzSłowa(słownik, kategorie);
 
         for(int j=i+5; i<j; i++){
-//            słowa = strategia.wybierzSłowa(słownik, kategorie);
-
-            słowa.add(słownik.getAll().get(0));
-            słowa.add(słownik.getAll().get(1));
-            słowa.add(słownik.getAll().get(2));
-            słowa.add(słownik.getAll().get(3));
-            słowa.add(słownik.getAll().get(4));
-
-            Random random = new Random();
-            int randomInteger = random.nextInt(słowa.size());
-
-            Słowo słowoPytanie = słowa.get(randomInteger);
+            Słowo słowoPytanie = słowa.get(i);
 
             System.out.println(i+1 + ". Pytanie: ");
             System.out.println(słowoPytanie.getPytanie(polNaAng));
             pytania.add(słowoPytanie);
 
-//            strategia.wyświetlPodpowiedzi(randomInteger, polNaAng);
+            strategia.wyświetlPodpowiedzi(i, polNaAng);
 
             System.out.println("Twoja odpowiedz: ");
 

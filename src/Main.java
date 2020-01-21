@@ -32,7 +32,6 @@ public class Main {
 
             System.out.println();
             System.out.println("Poziom : "+gracz.getTrudność()+"    Zdobyte punkty : "+gracz.getSumaPunktów());
-            System.out.println();
             System.out.println("1. Nauka");
             System.out.println("2. Sprawdzian");
             System.out.println("3. Ustaw poziom");
