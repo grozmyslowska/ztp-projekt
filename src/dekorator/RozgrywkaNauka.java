@@ -1,9 +1,6 @@
 package dekorator;
 
-import singleton.Słownik;
 import singleton.Słowo;
-import singleton.SłowoKategoria;
-import strategia.Strategia;
 
 import java.util.ArrayList;
 import java.util.List;

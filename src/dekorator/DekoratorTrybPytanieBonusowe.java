@@ -1,11 +1,5 @@
 package dekorator;
 
-import singleton.Słownik;
-import singleton.SłowoKategoria;
-import strategia.Strategia;
-
-import java.util.List;
-
 public class DekoratorTrybPytanieBonusowe extends DekoratorTryb {
 
     public DekoratorTrybPytanieBonusowe(Rozgrywka rozgrywka) {

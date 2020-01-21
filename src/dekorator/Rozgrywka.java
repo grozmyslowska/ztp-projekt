@@ -1,7 +1,6 @@
 package dekorator;
 
 import singleton.Słownik;
-import singleton.Słowo;
 import singleton.SłowoKategoria;
 import strategia.Strategia;
 
@@ -10,7 +9,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
 import java.util.List;
-import java.util.Scanner;
 
 public abstract class Rozgrywka {
     Słownik słownik;
