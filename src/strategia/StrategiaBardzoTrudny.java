@@ -42,11 +42,60 @@ public class StrategiaBardzoTrudny implements Strategia {
 
     private ArrayList<Słowo> losujPytania(){
         ArrayList<Słowo> pytania = new ArrayList<Słowo>();
-        pytania.add(losujSłowo(Trudność.BardzoTrudny));
-        pytania.add(losujSłowo(Trudność.Trudny));
-        pytania.add(losujSłowo(Trudność.BardzoTrudny));
-        pytania.add(losujSłowo(Trudność.Ekspert));
-        pytania.add(losujSłowo(Trudność.Ekspert));
+
+        ArrayList<Słowo> wszystkieSłowaZkategorii = new ArrayList<Słowo>();
+        while (iterator.hasNext()) {
+            Słowo słowo = iterator.next();
+            wszystkieSłowaZkategorii.add(słowo);
+        }
+        boolean[] wystąpienia= new boolean[wszystkieSłowaZkategorii.size()];
+        int ind;
+
+        do{
+            ind = losujSłowo(Trudność.BardzoTrudny, wszystkieSłowaZkategorii);
+            if(ind==-1)break;
+        }while(wystąpienia[ind]);
+        if(ind!=-1){
+            wystąpienia[ind]=true;
+            pytania.add(wszystkieSłowaZkategorii.get(ind));
+        }
+        else pytania.add(new Słowo("Brak tej trudności", "that don't exist", SłowoKategoria.Zwierzęta, Trudność.Łatwy));
+        do{
+            ind = losujSłowo(Trudność.Trudny, wszystkieSłowaZkategorii);
+            if(ind==-1)break;
+        }while(wystąpienia[ind]);
+        if(ind!=-1){
+            wystąpienia[ind]=true;
+            pytania.add(wszystkieSłowaZkategorii.get(ind));
+        }
+        else pytania.add(new Słowo("Brak tej trudności", "that don't exist", SłowoKategoria.Zwierzęta, Trudność.Łatwy));
+        do{
+            ind = losujSłowo(Trudność.BardzoTrudny, wszystkieSłowaZkategorii);
+            if(ind==-1)break;
+        }while(wystąpienia[ind]);
+        if(ind!=-1){
+            wystąpienia[ind]=true;
+            pytania.add(wszystkieSłowaZkategorii.get(ind));
+        }
+        else pytania.add(new Słowo("Brak tej trudności", "that don't exist", SłowoKategoria.Zwierzęta, Trudność.Łatwy));
+        do{
+            ind = losujSłowo(Trudność.Ekspert, wszystkieSłowaZkategorii);
+            if(ind==-1)break;
+        }while(wystąpienia[ind]);
+        if(ind!=-1){
+            wystąpienia[ind]=true;
+            pytania.add(wszystkieSłowaZkategorii.get(ind));
+        }
+        else pytania.add(new Słowo("Brak tej trudności", "that don't exist", SłowoKategoria.Zwierzęta, Trudność.Łatwy));
+        do{
+            ind = losujSłowo(Trudność.Ekspert, wszystkieSłowaZkategorii);
+            if(ind==-1)break;
+        }while(wystąpienia[ind]);
+        if(ind!=-1){
+            wystąpienia[ind]=true;
+            pytania.add(wszystkieSłowaZkategorii.get(ind));
+        }
+        else pytania.add(new Słowo("Brak tej trudności", "that don't exist", SłowoKategoria.Zwierzęta, Trudność.Łatwy));
 
         return pytania;
     }
@@ -73,20 +122,23 @@ public class StrategiaBardzoTrudny implements Strategia {
         return table;
     }
 
-    private Słowo losujSłowo(Trudność trudność){
+    private int losujSłowo(Trudność trudność, ArrayList<Słowo> lista){
         Słowo słowo=null;
         Random r = new Random();
-        int rand = r.nextInt(5);
-
-        for( ;rand>0; rand-- ){
-            int wykonaniePętli = 0;
-            while (iterator.hasNext()){
-                słowo = iterator.next();
-                if(słowo.getSłowoKategoria().equals(trudność)) break;
-                wykonaniePętli++;
-                if(wykonaniePętli>100) return new Słowo("Brak takiego słowa", "This word don't exist", SłowoKategoria.Zwierzęta, trudność);
-            }
+        int iloscSłówZOdpowiedniąTrudnością=0;
+        for(Słowo element: lista){
+            if(element.getTrudnośćSłowa().equals(trudność)) iloscSłówZOdpowiedniąTrudnością++;
         }
-        return słowo;
+        if(iloscSłówZOdpowiedniąTrudnością==0) return -1;
+        int rand = r.nextInt(iloscSłówZOdpowiedniąTrudnością);
+        int i=0;
+
+        do{
+            if(lista.get(i).getTrudnośćSłowa().equals(trudność)) rand--;
+            if(rand==-1) return i;
+            i++;
+        }while(rand>=0&&i<lista.size());
+
+        return -1;
     }
 }

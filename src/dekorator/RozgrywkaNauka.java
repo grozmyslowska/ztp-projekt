@@ -15,7 +15,7 @@ public class RozgrywkaNauka extends Rozgrywka {
         List<Słowo> słowa = new ArrayList<>();
 
         for(int j=i+5; i<j; i++) {
-//            słowa = strategia.wybierzSłowa(słownik, kategorie);
+            //słowa = strategia.wybierzSłowa(słownik, kategorie);
 
             słowa.add(słownik.getAll().get(0));
             słowa.add(słownik.getAll().get(1));
