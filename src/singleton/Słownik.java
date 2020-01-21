@@ -12,7 +12,21 @@ public final class Słownik{
         listaSłów = new ArrayList<Słowo>();
         listaSłów.add(new Słowo("kot","cat", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
         listaSłów.add(new Słowo("pies","dog", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
-        listaSłów.add(new Słowo("bird","ptak", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
+        listaSłów.add(new Słowo("ptak","bird", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
+
+        listaSłów.add(new Słowo("kot","cat", SłowoKategoria.Zwierzęta, Trudność.Łatwy));
+        listaSłów.add(new Słowo("pies","dog", SłowoKategoria.Zwierzęta, Trudność.Łatwy));
+        listaSłów.add(new Słowo("ptak","bird", SłowoKategoria.Zwierzęta, Trudność.Łatwy));
+        listaSłów.add(new Słowo("kot","cat", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
+        listaSłów.add(new Słowo("pies","dog", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
+        listaSłów.add(new Słowo("ptak","bird", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
+        listaSłów.add(new Słowo("kot","cat", SłowoKategoria.Zwierzęta, Trudność.Łatwy));
+        listaSłów.add(new Słowo("pies","dog", SłowoKategoria.Zwierzęta, Trudność.Łatwy));
+        listaSłów.add(new Słowo("ptak","bird", SłowoKategoria.Zwierzęta, Trudność.Łatwy));
+        listaSłów.add(new Słowo("kot","cat", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
+        listaSłów.add(new Słowo("pies","dog", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
+        listaSłów.add(new Słowo("ptak","bird", SłowoKategoria.Zwierzęta, Trudność.BradzoŁatwy));
+
     }
 
     public static Słownik getInstance() {

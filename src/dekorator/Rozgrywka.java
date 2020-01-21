@@ -43,7 +43,7 @@ public abstract class Rozgrywka {
     public void graj(){
     }
 
-    int zdobytePunkty(){
+    public int zdobytePunkty(){
         return 0;
     }
 

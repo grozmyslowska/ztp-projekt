@@ -12,18 +12,13 @@ import java.util.Scanner;
 
 public class RozgrywkaNauka extends Rozgrywka {
 
+    int i=0;
+
     public void graj() {
         List<Słowo> słowa = new ArrayList<>();
 
-        for(int i=0; i<5; i++) {
+        for(int j=i+5; i<j; i++) {
 //            słowa = strategia.wybierzSłowa(słownik, kategorie);
-
-//            System.out.println(słowa.size());
-//            System.out.println(słowa.get(1).getPoPolsku());
-//
-//            for(Słowo s: słowa){
-//                System.out.println(s.getPoPolsku());
-//            }
 
             słowa.add(słownik.getAll().get(0));
             słowa.add(słownik.getAll().get(1));
@@ -47,7 +42,7 @@ public class RozgrywkaNauka extends Rozgrywka {
                 Scanner scan = new Scanner(System.in);
                 String odpowiedzGracza = scan.nextLine();
 
-                if (odpowiedzGracza.equals(słowoPytanie.getPodpowiedz(polNaAng))){
+                if (odpowiedzGracza.equalsIgnoreCase(słowoPytanie.getPodpowiedz(polNaAng))){
                     odpowiedzPrawidlowa();
                     break;
                 } else

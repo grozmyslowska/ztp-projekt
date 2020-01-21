@@ -38,7 +38,7 @@ public class Main {
         while(true) {
 
             System.out.println();
-            System.out.println("Poziom : "+gracz.getTrudność()+"");
+            System.out.println("Poziom : "+gracz.getTrudność()+"    Zdobyte punkty : "+gracz.getSumaPunktów());
             System.out.println();
             System.out.println("1. Nauka");
             System.out.println("2. Sprawdzian");
@@ -77,32 +77,103 @@ public class Main {
 
     public void nauka(){
         boolean polNaAng = ustawCzyPolNaAng();
-        boolean trybPodwojnePytania = ustawTrybPodwojnePytania();
-        boolean trybUltra = ustawTrybUltra();
+
+        List<SłowoKategoria> kategorie = wybierzKategorie();
 
         Strategia strategia = dobierzStrategię();
 
-        // wybierz kategorie
-        List<SłowoKategoria> kategorie = new ArrayList<>();
-        kategorie.add(SłowoKategoria.Zwierzęta);
-
         Rozgrywka rozgrywka = new RozgrywkaNauka();
-
         rozgrywka.setPolNaAng(polNaAng);
         rozgrywka.setKategorie(kategorie);
         rozgrywka.setStrategia(strategia);
         rozgrywka.setSłownik(słownik);
 
+        boolean trybPodwojnePytania = ustawTrybPodwojnePytania();
+//        boolean trybUltra = ustawTrybUltra();
 
-        // stwórz obiekt klasy rozgrywka
+        Rozgrywka rozgrywka1;
+        Rozgrywka rozgrywka2;
 
-        // wywołaj metodę gra
+        if(trybPodwojnePytania)
+            rozgrywka1 = new DekoratorTrybPytanieBonusowe(rozgrywka);
+        else
+            rozgrywka1 = rozgrywka;
 
-        // auaktualnij liczbę punktów
+//        if(trybUltra)
+//            rozgrywka2 = new DekoratorTrybUltra(rozgrywka1);
+//        else
+            rozgrywka2 = rozgrywka1;
+
+        rozgrywka2.graj();
+
+        gracz.setSumaPunktów(rozgrywka2.zdobytePunkty());
     }
 
     public void sprawdzian(){
+        boolean polNaAng = ustawCzyPolNaAng();
 
+        List<SłowoKategoria> kategorie = wybierzKategorie();
+
+        Strategia strategia = dobierzStrategię();
+
+        Rozgrywka rozgrywka = new RozgrywkaSprawdzian();
+        rozgrywka.setPolNaAng(polNaAng);
+        rozgrywka.setKategorie(kategorie);
+        rozgrywka.setStrategia(strategia);
+        rozgrywka.setSłownik(słownik);
+
+        boolean trybPodwojnePytania = ustawTrybPodwojnePytania();
+        boolean trybUltra = ustawTrybUltra();
+
+        Rozgrywka rozgrywka1;
+        Rozgrywka rozgrywka2;
+
+        if(trybPodwojnePytania)
+            rozgrywka1 = new DekoratorTrybPytanieBonusowe(rozgrywka);
+        else
+            rozgrywka1 = rozgrywka;
+
+        if(trybUltra)
+            rozgrywka2 = new DekoratorTrybUltra(rozgrywka1);
+        else
+        rozgrywka2 = rozgrywka1;
+
+        rozgrywka2.graj();
+
+        gracz.setSumaPunktów(rozgrywka2.zdobytePunkty());
+    }
+
+    List<SłowoKategoria> wybierzKategorie(){
+        List<SłowoKategoria> kategorie = new ArrayList<>();
+        kategorie.add(SłowoKategoria.Zwierzęta);
+        return kategorie;
+
+//        System.out.println("Wybierz kategorię... ");
+//
+//        Scanner scan = new Scanner(System.in);
+//        int wybór = 0;
+//        boolean ok;
+//        String s;
+//
+//        do{
+//            ok = true;
+//            System.out.println("Kategorie: ");
+//            System.out.println("1. Zwierzęta ");
+//            System.out.println("2. Kolowkwium");
+//            System.out.println("3. Kolory");
+//            System.out.println();
+//            System.out.print("Wybierz opcję: ");
+//            s = scan.nextLine();
+//            try {
+//                wybór = Integer.parseInt(s.trim());
+//            } catch (Exception e) {
+//                System.out.println("Należy wybrać wartość od 1 do 3!");
+//                ok = false;
+//                continue;
+//            }
+//            //System.out.println("Dodać kolejną kategorię? (");
+//        } while(!ok||wybór<1||wybór>3);
+//        return null;
     }
 
     boolean ustawCzyPolNaAng(){
@@ -140,7 +211,7 @@ public class Main {
         System.out.print("Podwójna ilość pytań? (T/N): ");
         s = scan.nextLine();
 
-        if (s=="T" || s=="t"){
+        if (s.equalsIgnoreCase("t")){
             return true;
         } else return false;
     }
@@ -151,7 +222,7 @@ public class Main {
         System.out.print("Dodać TrybUltra (punkty x2)? (T/N): ");
         s = scan.nextLine();
 
-        if (s=="T" || s=="t"){
+        if (s.equalsIgnoreCase("t")){
             return true;
         } else return false;
     }
