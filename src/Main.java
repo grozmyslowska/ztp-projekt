@@ -15,6 +15,8 @@ public class Main {
     Słownik słownik = Słownik.getInstance();
 
     public Main() {
+        System.out.println();
+        System.out.println();
         System.out.print("Witaj w aplikacji do nauki języka angielskiego!");
         System.out.println();
         menuGłówne();
@@ -34,9 +36,9 @@ public class Main {
             System.out.println("Poziom : "+gracz.getTrudność()+"    Zdobyte punkty : "+gracz.getSumaPunktów());
             System.out.println("1. Nauka");
             System.out.println("2. Sprawdzian");
-            System.out.println("3. Ustaw poziom");
+            System.out.println("3. Ustaw poziom trudności");
             System.out.println("4. Zarządzaj słownikiem");
-            System.out.println("5. Pokaż historię przeprowadzonych gier");
+            System.out.println("5. Pokaż historię gier");
             System.out.print("Wybierz opcję: ");
             s = scan.nextLine();
             int i = 0;
@@ -81,24 +83,17 @@ public class Main {
         rozgrywka.setSłownik(słownik);
 
         boolean trybPodwojnePytania = ustawTrybPodwojnePytania();
-//        boolean trybUltra = ustawTrybUltra();
 
         Rozgrywka rozgrywka1;
-        Rozgrywka rozgrywka2;
 
         if(trybPodwojnePytania)
-            rozgrywka1 = new DekoratorTrybPytanieBonusowe(rozgrywka);
+            rozgrywka1 = new DekoratorTrybPodwojnePytania(rozgrywka);
         else
             rozgrywka1 = rozgrywka;
 
-//        if(trybUltra)
-//            rozgrywka2 = new DekoratorTrybUltra(rozgrywka1);
-//        else
-            rozgrywka2 = rozgrywka1;
+        rozgrywka1.graj();
 
-        rozgrywka2.graj();
-
-        gracz.setSumaPunktów(rozgrywka2.zdobytePunkty());
+        gracz.setSumaPunktów(rozgrywka1.zdobytePunkty());
     }
 
     public void sprawdzian(){
@@ -121,7 +116,7 @@ public class Main {
         Rozgrywka rozgrywka2;
 
         if(trybPodwojnePytania)
-            rozgrywka1 = new DekoratorTrybPytanieBonusowe(rozgrywka);
+            rozgrywka1 = new DekoratorTrybPodwojnePytania(rozgrywka);
         else
             rozgrywka1 = rozgrywka;
 
@@ -136,36 +131,53 @@ public class Main {
     }
 
     List<SłowoKategoria> wybierzKategorie(){
+        Scanner scan = new Scanner(System.in);
+        int wybór = 0;
+        boolean ok;
+        String s;
         List<SłowoKategoria> kategorie = new ArrayList<>();
-        kategorie.add(SłowoKategoria.Zwierzęta);
-        return kategorie;
 
-//        System.out.println("Wybierz kategorię... ");
-//
-//        Scanner scan = new Scanner(System.in);
-//        int wybór = 0;
-//        boolean ok;
-//        String s;
-//
-//        do{
-//            ok = true;
-//            System.out.println("Kategorie: ");
-//            System.out.println("1. Zwierzęta ");
-//            System.out.println("2. Kolowkwium");
-//            System.out.println("3. Kolory");
-//            System.out.println();
-//            System.out.print("Wybierz opcję: ");
-//            s = scan.nextLine();
-//            try {
-//                wybór = Integer.parseInt(s.trim());
-//            } catch (Exception e) {
-//                System.out.println("Należy wybrać wartość od 1 do 3!");
-//                ok = false;
-//                continue;
-//            }
-//            //System.out.println("Dodać kolejną kategorię? (");
-//        } while(!ok||wybór<1||wybór>3);
-//        return null;
+        System.out.print("Ustawić kategorię? (T/N): ");
+
+        s = scan.nextLine();
+        if (!s.equalsIgnoreCase("t")){
+            kategorie.add(SłowoKategoria.Zwierzęta);
+            kategorie.add(SłowoKategoria.Kolory);
+            kategorie.add(SłowoKategoria.Kolowkwium);
+            return kategorie;
+        }
+
+        do{
+            ok = true;
+            System.out.println("Kategorie: ");
+            System.out.println("1. Zwierzęta ");
+            System.out.println("2. Kolowkwium");
+            System.out.println("3. Kolory");
+            System.out.print("Wybierz opcję: ");
+            s = scan.nextLine();
+            try {
+                wybór = Integer.parseInt(s.trim());
+            } catch (Exception e) {
+                System.out.println("Należy wybrać wartość od 1 do 3!");
+                ok = false;
+                continue;
+            }
+            if(wybór<1||wybór>3)System.out.println("Należy wybrać wartość od 1 do 3!");
+        } while(!ok||wybór<1||wybór>3);
+
+        switch (wybór){
+            case 1:
+                kategorie.add(SłowoKategoria.Zwierzęta);
+                break;
+            case 2:
+                kategorie.add(SłowoKategoria.Kolowkwium);
+                break;
+            default:
+                kategorie.add(SłowoKategoria.Kolory);
+                break;
+        }
+
+        return kategorie;
     }
 
     boolean ustawCzyPolNaAng(){
@@ -175,8 +187,6 @@ public class Main {
         System.out.println("Tryb");
         System.out.println("1. Polski na angielski");
         System.out.println("2. Angielski na polski");
-
-        System.out.println();
         System.out.print("Wybierz opcję: ");
         s = scan.nextLine();
         int i = 0;
@@ -422,23 +432,20 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         String s;
         System.out.println();
-        System.out.print("Poziom trudności ustawiany : ");
+        System.out.print("Teraz poziom trudności ustawiany : ");
 
         if(gracz.isTrudnośćAutomatyczna())
             System.out.println("automatycznie");
         else
             System.out.println("ręcznie");
 
-        System.out.println();
         System.out.println("1. BardzoŁatwy ");
         System.out.println("2. Łatwy");
         System.out.println("3. Trudny");
         System.out.println("4. BardzoTrudny");
         System.out.println("5. Ekspert");
-        System.out.println("6. Ustawiany automatycznie");
+        System.out.println("6. Ustawiaj automatycznie");
 
-
-        System.out.println();
         System.out.print("Wybierz opcję: ");
         s = scan.nextLine();
         int i = 0;

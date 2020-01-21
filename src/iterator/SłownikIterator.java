@@ -6,12 +6,12 @@ import singleton.SłowoKategoria;
 import java.util.Iterator;
 import java.util.List;
 
-public class SłownikKategoriaIterator implements Iterator<Słowo> {
+public class SłownikIterator implements Iterator<Słowo> {
     protected Słownik słownik;
     private int index;
     private List<SłowoKategoria> wybraneKategorie;
 
-    public SłownikKategoriaIterator(Słownik słownik, List<SłowoKategoria> kategorie){
+    public SłownikIterator(Słownik słownik, List<SłowoKategoria> kategorie){
         index = -1;
         this.słownik=słownik;
         wybraneKategorie=kategorie;
@@ -33,17 +33,17 @@ public class SłownikKategoriaIterator implements Iterator<Słowo> {
 
     private int findNextIndex() {
         List<Słowo> słowa = słownik.getAll();
-        int tempIdx = index;
+        int temporaryIndex = index;
         while (true) {
-            tempIdx++;
-            if (tempIdx >= słowa.size()) {
-                tempIdx = -1;
+            temporaryIndex++;
+            if (temporaryIndex >= słowa.size()) {
+                temporaryIndex = -1;
                 break;
             }
-            if(wybraneKategorie.contains(słowa.get(tempIdx).getSłowoKategoria())){
+            if(wybraneKategorie.contains(słowa.get(temporaryIndex).getSłowoKategoria())){
                 break;
             }
         }
-        return tempIdx;
+        return temporaryIndex;
     }
 }

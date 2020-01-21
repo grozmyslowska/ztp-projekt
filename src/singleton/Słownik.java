@@ -1,6 +1,6 @@
 package singleton;
 
-import iterator.SłownikKategoriaIterator;
+import iterator.SłownikIterator;
 
 import java.util.*;
 
@@ -25,7 +25,7 @@ public final class Słownik{
             return it;
         }
         else{
-            return new SłownikKategoriaIterator(this, kategorie);
+            return new SłownikIterator(this, kategorie);
         }
     }
 

@@ -18,13 +18,12 @@ public abstract class Rozgrywka {
 
     Clip clip;
 
+    public Rozgrywka() {
+    }
+
     public void setSłownik(Słownik słownik) {
         this.słownik = słownik;
     }
-
-//    public void setSłowa(List<Słowo> słowa) {
-//        this.słowa = słowa;
-//    }
 
     public void setPolNaAng(boolean polNaAng) {
         this.polNaAng = polNaAng;

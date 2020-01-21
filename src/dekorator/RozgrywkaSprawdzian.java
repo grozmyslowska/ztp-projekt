@@ -16,7 +16,7 @@ public class RozgrywkaSprawdzian extends Rozgrywka implements Serializable {
     List<Słowo> pytania = new ArrayList<>();
     List<String> odpowiedzi = new ArrayList<>();
 
-    int i = 0;
+    transient int i = 0;
 
     public void graj() {
         List<Słowo> słowa = strategia.wybierzSłowa(słownik, kategorie);
@@ -24,13 +24,14 @@ public class RozgrywkaSprawdzian extends Rozgrywka implements Serializable {
         for(int j=i+5; i<j; i++){
             Słowo słowoPytanie = słowa.get(i);
 
-            System.out.println(i+1 + ". Pytanie: ");
+            System.out.println();
+            System.out.print(i+1 + ". Pytanie: ");
             System.out.println(słowoPytanie.getPytanie(polNaAng));
             pytania.add(słowoPytanie);
 
             strategia.wyświetlPodpowiedzi(i, polNaAng);
 
-            System.out.println("Twoja odpowiedz: ");
+            System.out.print("Twoja odpowiedz: ");
 
             Scanner scan = new Scanner(System.in);
             String odpowiedzGracza = scan.nextLine();
@@ -42,6 +43,7 @@ public class RozgrywkaSprawdzian extends Rozgrywka implements Serializable {
                 odpowiedzNieprawidlowa();
         }
 
+        System.out.println();
         System.out.println("Ilość prawidłowych odpowiedzi: "+iloscPrawidlowychOdpowiedzi);
     }
 

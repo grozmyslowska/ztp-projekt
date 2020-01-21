@@ -17,14 +17,15 @@ public class RozgrywkaNauka extends Rozgrywka {
         for(int j=i+5; i<j; i++) {
             Słowo słowoPytanie = słowa.get(i);
 
-            System.out.println(i+1 + ". Pytanie: ");
+            System.out.println();
+            System.out.print(i+1 + ". Pytanie: ");
             System.out.println(słowoPytanie.getPytanie(polNaAng));
 
             strategia.wyświetlPodpowiedzi(i,polNaAng);
 
             while (true){
 
-                System.out.println("Twoja odpowiedz: ");
+                System.out.print("Twoja odpowiedz: ");
 
                 Scanner scan = new Scanner(System.in);
                 String odpowiedzGracza = scan.nextLine();

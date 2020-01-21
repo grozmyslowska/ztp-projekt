@@ -96,7 +96,7 @@ public class StrategiaBardzoŁatwy implements Strategia {
     }
 
     private int[] losujKolejnośćPodpowiedzi(int correctAnswer){
-        var table = new int[5];
+        var table = new int[2];
         boolean firstZero=true;
         if(correctAnswer==0) firstZero=false;
 
