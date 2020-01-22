@@ -161,9 +161,9 @@ public class Main {
 
         s = scan.nextLine();
         if (!s.equalsIgnoreCase("t")){
-            kategorie.add(SłowoKategoria.Zwierzęta);
-            kategorie.add(SłowoKategoria.Kolory);
-            kategorie.add(SłowoKategoria.Kolowkwium);
+//            kategorie.add(SłowoKategoria.Zwierzęta);
+//            kategorie.add(SłowoKategoria.Kolory);
+//            kategorie.add(SłowoKategoria.Kolowkwium);
             return kategorie;
         }
 

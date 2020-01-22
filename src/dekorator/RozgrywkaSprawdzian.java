@@ -22,15 +22,16 @@ public class RozgrywkaSprawdzian extends Rozgrywka {
     public void graj() {
         List<Słowo> słowa = strategia.wybierzSłowa(słownik, kategorie);
 
-        for(int j=i+5; i<j; i++){
-            Słowo słowoPytanie = słowa.get(i);
+        int ii = 0;
+        for(int j=i+5; i<j; i++, ii++){
+            Słowo słowoPytanie = słowa.get(ii);
 
             System.out.println();
             System.out.print(i+1 + ". Pytanie: ");
             System.out.println(słowoPytanie.getPytanie(polNaAng));
             pytania.add(słowoPytanie);
 
-            strategia.wyświetlPodpowiedzi(i, polNaAng);
+            strategia.wyświetlPodpowiedzi(ii, polNaAng);
 
             System.out.print("Twoja odpowiedz: ");
 
