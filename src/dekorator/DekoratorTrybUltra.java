@@ -6,10 +6,6 @@ public class DekoratorTrybUltra extends DekoratorTryb {
         super(rozgrywka);
     }
 
-    public void graj() {
-        rozgrywka.graj();
-    }
-
     public int zdobytePunkty() {
         return rozgrywka.zdobytePunkty()*2;
     }

@@ -10,8 +10,4 @@ public class DekoratorTrybPodwojnePytania extends DekoratorTryb {
         rozgrywka.graj();
         rozgrywka.graj();
     }
-
-    public int zdobytePunkty() {
-        return rozgrywka.zdobytePunkty();
-    }
 }

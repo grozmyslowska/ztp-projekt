@@ -6,4 +6,12 @@ public abstract class DekoratorTryb extends Rozgrywka {
     public DekoratorTryb(Rozgrywka rozgrywka) {
         this.rozgrywka = rozgrywka;
     }
+
+    public void graj() {
+        rozgrywka.graj();
+    }
+
+    public int zdobytePunkty() {
+        return rozgrywka.zdobytePunkty();
+    }
 }
