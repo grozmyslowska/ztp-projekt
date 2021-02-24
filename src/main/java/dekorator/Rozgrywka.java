@@ -8,6 +8,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.List;
 
 public abstract class Rozgrywka {
@@ -46,16 +48,17 @@ public abstract class Rozgrywka {
     }
 
     public void odpowiedzPrawidlowa(){
-        dzwiek(".//res//OK.wav");
+        dzwiek("OK.wav");
     }
 
     public void odpowiedzNieprawidlowa(){
-        dzwiek(".//res//Error.wav");
+        dzwiek("Error.wav");
     }
 
-    void dzwiek(String adresPliku){
+    void dzwiek(String nazwaPliku){
         try{
-            File file = new File(adresPliku);
+            URL res = getClass().getClassLoader().getResource(nazwaPliku);
+            File file = Paths.get(res.toURI()).toFile();
             AudioInputStream sound = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
             clip.open(sound);
